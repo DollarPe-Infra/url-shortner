@@ -71,6 +71,8 @@ const spec = {
   ENABLE_RATE_LIMIT: bool({ default: false }),
   REPORT_EMAIL: str({ default: "" }),
   CONTACT_EMAIL: str({ default: "" }),
+  ADMIN_EMAIL: str({ default: "" }),
+  ADMIN_PASSWORD: str({ default: "" }),
   NODE_APP_INSTANCE: num({ default: 0 }),
 };
 

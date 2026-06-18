@@ -87,6 +87,17 @@ app.get("*", renders.notFound);
 // handle errors coming from above routes
 app.use(helpers.error);
   
-app.listen(env.PORT, () => {
+app.listen(env.PORT, async () => {
   console.log(`> Ready on http://localhost:${env.PORT}`);
+  if (env.ADMIN_EMAIL && env.ADMIN_PASSWORD) {
+    const isThereAUser = await query.user.findAny();
+    if (!isThereAUser) {
+      const bcrypt = require("bcryptjs");
+      const { ROLES } = require("./consts");
+      const salt = await bcrypt.genSalt(12);
+      const password = await bcrypt.hash(env.ADMIN_PASSWORD, salt);
+      await query.user.add({ email: env.ADMIN_EMAIL, password, role: ROLES.ADMIN, verified: true });
+      console.log(`> Admin user created: ${env.ADMIN_EMAIL}`);
+    }
+  }
 });
