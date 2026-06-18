@@ -1,0 +1,63 @@
+version: 1.0
+runtime: nodejs20
+
+build:
+  commands:
+    build:
+      - npm ci --omit=dev
+
+run:
+  runtime-version: "20"
+  pre-run:
+    - npm run migrate
+  command: npm start
+  network:
+    port: 3000
+
+  # If you use runtime secrets, App Runner requires an instance role so the
+  # runtime can retrieve secrets from Secrets Manager. Add your role ARN here:
+  # instanceRoleArn: arn:aws:iam::291935881411:role/AppRunnerInstanceRole
+
+  env:
+    - name: SITE_NAME
+      value: Dollarpe
+    - name: PORT
+      value: "3000"
+
+  secrets:
+    - name: NODE_ENV
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:NODE_ENV::"
+    - name: DEFAULT_DOMAIN
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DEFAULT_DOMAIN::"
+    - name: TRUST_PROXY
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:TRUST_PROXY::"
+    - name: DB_CLIENT
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_CLIENT::"
+    - name: DB_HOST
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_HOST::"
+    - name: DB_PORT
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_PORT::"
+    - name: DB_NAME
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_NAME::"
+    - name: DB_USER
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_USER::"
+    - name: DB_PASSWORD
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_PASSWORD::"
+    - name: DB_SSL
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_SSL::"
+    - name: DB_POOL_MIN
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_POOL_MIN::"
+    - name: DB_POOL_MAX
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_POOL_MAX::"
+    - name: REDIS_ENABLED
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:REDIS_ENABLED::"
+    - name: LINK_LENGTH
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:LINK_LENGTH::"
+    - name: DISALLOW_REGISTRATION
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DISALLOW_REGISTRATION::"
+    - name: DISALLOW_ANONYMOUS_LINKS
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DISALLOW_ANONYMOUS_LINKS::"
+    - name: CUSTOM_DOMAIN_USE_HTTPS
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:CUSTOM_DOMAIN_USE_HTTPS::"
+    - name: JWT_SECRET
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:JWT_SECRET::"
