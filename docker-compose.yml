@@ -5,6 +5,8 @@ services:
     volumes:
        - db_data_sqlite:/var/lib/kutt
        - custom:/kutt/custom
+    env_file:
+      - .env
     environment:
       DB_FILENAME: "/var/lib/kutt/data.sqlite"
     ports:

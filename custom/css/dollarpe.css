@@ -1,0 +1,41 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --color-primary: #24CB71;
+  --outline-color: #24CB71;
+  --button-bg-primary: linear-gradient(to right, #24CB71, #1aad5f);
+  --button-bg-primary-box-shadow-color: rgba(36, 203, 113, 0.4);
+  --button-bg-secondary: linear-gradient(to right, #1aad5f, #148f4e);
+  --button-bg-secondary-box-shadow-color: rgba(26, 173, 95, 0.4);
+  --button-bg-success: linear-gradient(to right, #24CB71, #1aad5f);
+  --button-bg-success-box-shadow-color: rgba(36, 203, 113, 0.4);
+  --focus-outline-color: rgba(36, 203, 113, 0.4);
+  --checkbox-bg-color: #24CB71;
+  --underline-color: #24CB71;
+  --secondary-text-color: #666666;
+  --input-label-color: #1a1a1a;
+  --send-icon-hover-color: #1aad5f;
+  --success-icon-color: #24CB71;
+  --copy-icon-color: #24CB71;
+  --copy-icon-bg-color: #f0fdf6;
+  --table-bg-color: #f9f9f9;
+  --table-tr-hover-bg-color: #f0fdf6;
+  --table-tr-border-color: #f0f0f0;
+  --table-head-tr-border-color: #e8e8e8;
+  --table-status-gray-bg-color: #f5f5f5;
+}
+
+/* White header */
+header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Green active/focus states */
+a:not(.button) {
+  color: #24CB71;
+}
+
+a:not(.button):hover {
+  color: #1aad5f;
+}

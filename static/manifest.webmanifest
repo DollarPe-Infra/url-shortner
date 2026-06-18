@@ -1,10 +1,10 @@
 {
-  "name": "Kutt",
-  "short_name": "Kutt",
+  "name": "Dollarpe",
+  "short_name": "Dollarpe",
   "theme_color": "#f3f3f3",
   "background_color": "#f3f3f3",
   "display": "standalone",
-  "description": "Kutt.to is a free and open source URL shortener with custom domains and stats.",
+  "description": "Dollarpe URL shortener with custom domains and stats.",
   "Scope": "/",
   "start_url": "/",
   "icons": [

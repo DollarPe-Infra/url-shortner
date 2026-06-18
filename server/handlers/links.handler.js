@@ -534,7 +534,6 @@ async function redirect(req, res, next) {
     queue.visit.add({
       userAgent: req.headers["user-agent"],
       ip: req.ip,
-      country: req.get("cf-ipcountry"),
       referrer: req.get("Referrer"),
       link
     });
@@ -566,7 +565,6 @@ async function redirectProtected(req, res) {
     queue.visit.add({
       userAgent: req.headers["user-agent"],
       ip: req.ip,
-      country: req.get("cf-ipcountry"),
       referrer: req.get("Referrer"),
       link
     });

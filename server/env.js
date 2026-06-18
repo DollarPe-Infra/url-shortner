@@ -28,8 +28,8 @@ if (process.argv.includes("--production")) {
 
 const spec = {
   PORT: num({ default: 3000 }),
-  SITE_NAME: str({ example: "Kutt", default: "Kutt" }),
-  DEFAULT_DOMAIN: str({ example: "kutt.to", default: "localhost:3000" }),
+  SITE_NAME: str({ example: "Dollarpe", default: "Dollarpe" }),
+  DEFAULT_DOMAIN: str({ example: "dollarpe.com", default: "localhost:3000" }),
   LINK_LENGTH: num({ default: 6 }),
   LINK_CUSTOM_ALPHABET: str({ default: "abcdefghkmnpqrstuvwxyzABCDEFGHKLMNPQRSTUVWXYZ23456789" }),
   TRUST_PROXY: bool({ default: true }),
