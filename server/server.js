@@ -15,6 +15,7 @@ const locals = require("./handlers/locals.handler");
 const links = require("./handlers/links.handler");
 const routes = require("./routes");
 const utils = require("./utils");
+const query = require("./queries");
 
 
 // run the cron jobs
