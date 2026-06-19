@@ -480,12 +480,12 @@ async function redirect(req, res, next) {
   // 3. When no link, if has domain redirect to domain's homepage
   // otherwise redirect to 404
   if (!link) {
-    return res.redirect(domain?.homepage || "/404");
+    return res.redirect(domain?.homepage || "/admin/404");
   }
 
   // 4. If link is banned, redirect to banned page.
   if (link.banned) {
-    return res.redirect("/banned");
+    return res.redirect("/admin/banned");
   }
 
   // 5. If wants to see link info, then redirect
@@ -616,7 +616,7 @@ async function stats(req, res) {
 
   if (!link) {
     if (req.isHTML) {
-      res.setHeader("HX-Redirect", "/404");
+      res.setHeader("HX-Redirect", "/admin/404");
       res.status(200).send("");
       return;
     }

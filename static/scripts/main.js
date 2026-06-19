@@ -9,7 +9,7 @@ document.body.addEventListener("htmx:configRequest", function(evt) {
 // redirect to homepage
 document.body.addEventListener("redirectToHomepage", function() {
   setTimeout(() => {
-    window.location.replace("/");
+    window.location.replace("/admin");
   }, 1500);
 });
 

@@ -59,7 +59,7 @@ router.get(
 );
 
 router.get(
-  "/admin",
+  "/manage",
   asyncHandler(auth.jwtPage),
   asyncHandler(auth.admin),
   asyncHandler(locals.user),
@@ -200,10 +200,10 @@ router.get(
 );
 
 router.get(
-  "/admin/link/edit/:id",
+  "/manage/link/edit/:id",
   locals.noLayout,
   asyncHandler(auth.jwt),
-  asyncHandler(auth.admin), 
+  asyncHandler(auth.admin),
   asyncHandler(renders.linkEditAdmin)
 );
 

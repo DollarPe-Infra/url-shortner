@@ -90,7 +90,7 @@ if (env.OIDC_ENABLED) {
     const client = new issuer.Client({
       client_id: env.OIDC_CLIENT_ID,
       client_secret: env.OIDC_CLIENT_SECRET,
-      redirect_uris: [utils.getSiteURL() + "/login/oidc"],
+      redirect_uris: [utils.getSiteURL() + "/admin/login/oidc"],
       response_types: ["code"]
     });
   

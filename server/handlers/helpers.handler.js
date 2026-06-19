@@ -131,7 +131,7 @@ async function adminSetup(req, res, next) {
     return;
   }
 
-  res.redirect("/create-admin");
+  res.redirect("/admin/create-admin");
 }
 
 module.exports = {

@@ -1,13 +1,13 @@
 <header>
   <div class="logo-wrapper">
-    <a class="logo nav" href="/" title="Homepage">
+    <a class="logo nav" href="/admin" title="Homepage">
       <img src="/images/dollarpe.png" alt="dollarpe" style="height:32px;width:auto;" />
       {{site_name}}
     </a>
     <ul class="logo-links">
       {{#if report_email}}
         <li>
-          <a class="nav" href="/report" title="Report abuse">
+          <a class="nav" href="/admin/report" title="Report abuse">
             Report
           </a>
         </li>
@@ -19,7 +19,7 @@
       {{#unless user}}
         {{#unless login_disabled}}
           <li>
-            <a class="button primary" href="/login" title="Log in or sign up">
+            <a class="button primary" href="/admin/login" title="Log in or sign up">
               Log in / Sign up
             </a>
           </li>
@@ -27,21 +27,21 @@
       {{/unless}}
       {{#if user}}
         <li>
-          <a class="button primary" href="/settings" title="Settings">
+          <a class="button primary" href="/admin/settings" title="Settings">
             <span>{{> icons/cog}}</span>
             Settings
           </a>
         </li>
         {{#if isAdmin}}
           <li>
-            <a class="button secondary" href="/admin" title="Admin">
+            <a class="button secondary" href="/admin/manage" title="Admin">
               <span>{{> icons/shield}}</span>
               Admin
             </a>
           </li>
         {{/if}}
         <li>
-          <a class="nav" href="/logout" title="Log out">
+          <a class="nav" href="/admin/logout" title="Log out">
             Log out
           </a>
         </li>

@@ -72,8 +72,8 @@ utils.registerHandlebarsHelpers();
 // if is custom domain, redirect to the set homepage
 app.use(asyncHandler(links.redirectCustomDomainHomepage));
 
-// render html pages
-app.use("/", routes.render);
+// render html pages (dashboard lives under /admin/*)
+app.use("/admin", routes.render);
 
 // handle api requests
 app.use("/api/v2", routes.api);
