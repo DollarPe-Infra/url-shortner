@@ -51,6 +51,14 @@ run:
       value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:DB_POOL_MAX::"
     - name: REDIS_ENABLED
       value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:REDIS_ENABLED::"
+    - name: REDIS_HOST
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:REDIS_HOST::"
+    - name: REDIS_PORT
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:REDIS_PORT::"
+    - name: REDIS_PASSWORD
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:REDIS_PASSWORD::"
+    - name: REDIS_DB
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:REDIS_DB::"
     - name: LINK_LENGTH
       value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:LINK_LENGTH::"
     - name: DISALLOW_REGISTRATION
@@ -65,3 +73,5 @@ run:
       value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:ADMIN_EMAIL::"
     - name: ADMIN_PASSWORD
       value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:ADMIN_PASSWORD::"
+    - name: LINK_CUSTOM_ALPHABET
+      value-from: "arn:aws:secretsmanager:us-east-1:291935881411:secret:development/url-shortner-a5eLTc:LINK_CUSTOM_ALPHABET::"
