@@ -8,9 +8,10 @@ build:
 
 run:
   runtime-version: "22.21.1"
-  pre-run:
-    - npm run migrate
-  command: npm start
+  # run migrate inside the start command so it shares the runtime secrets (DB_*).
+  # pre-run does not reliably receive the injected secrets, so it migrated the
+  # sqlite default instead of Postgres. migrate:latest is idempotent.
+  command: npm run migrate && npm start
   network:
     port: 3000
 
