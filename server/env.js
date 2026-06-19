@@ -21,6 +21,16 @@ if (process.env.JWT_SECRET === "") {
   delete process.env.JWT_SECRET;
 }
 
+// normalize DEFAULT_DOMAIN to a bare host: strip surrounding whitespace, any
+// http(s):// scheme, and trailing slashes. the app prepends the protocol itself,
+// so a stray scheme or space produces broken links (e.g. "https://https://host /id").
+if (process.env.DEFAULT_DOMAIN) {
+  process.env.DEFAULT_DOMAIN = process.env.DEFAULT_DOMAIN
+    .trim()
+    .replace(/^https?:\/\//i, "")
+    .replace(/\/+$/, "");
+}
+
 // if is started with the --production argument, then set NODE_ENV to production
 if (process.argv.includes("--production")) {
   process.env.NODE_ENV = "production";
