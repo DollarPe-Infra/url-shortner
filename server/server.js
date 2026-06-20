@@ -14,6 +14,7 @@ const asyncHandler = require("./utils/asyncHandler");
 const locals = require("./handlers/locals.handler");
 const links = require("./handlers/links.handler");
 const routes = require("./routes");
+const health = require("./routes/health.routes");
 const utils = require("./utils");
 const query = require("./queries");
 
@@ -68,6 +69,9 @@ app.set("views", [
   path.join(__dirname, "views"),
 ]);
 utils.registerHandlebarsHelpers();
+
+// health check (root path, no auth, host-independent — mounted before any redirect)
+app.use("/health", health);
 
 // if is custom domain, redirect to the set homepage
 app.use(asyncHandler(links.redirectCustomDomainHomepage));

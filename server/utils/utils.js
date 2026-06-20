@@ -160,6 +160,7 @@ const preservedURLs = [
   "logout",
   "create-admin",
   "404",
+  "health",
   "settings",
   "admin",
   "stats",
