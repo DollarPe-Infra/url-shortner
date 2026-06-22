@@ -17,7 +17,7 @@ run:
 
   # If you use runtime secrets, App Runner requires an instance role so the
   # runtime can retrieve secrets from Secrets Manager. Add your role ARN here:
-  # instanceRoleArn: arn:aws:iam::291935881411:role/AppRunnerInstanceRole
+  instanceRoleArn: arn:aws:iam::291935881411:role/AppRunnerInstanceRole
 
   env:
     - name: SITE_NAME
