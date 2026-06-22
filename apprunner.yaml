@@ -16,7 +16,7 @@ run:
     port: 3000
 
   # Instance role required for retrieving secrets from Secrets Manager
-  instanceRoleArn: arn:aws:iam::291935881411:role/AppRunnerInstanceRole
+  # instanceRoleArn: arn:aws:iam::291935881411:role/AppRunnerInstanceRole
 
   env:
     - name: SITE_NAME
