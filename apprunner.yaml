@@ -11,13 +11,12 @@ run:
   # run migrate inside the start command so it shares the runtime secrets (DB_*).
   # pre-run does not reliably receive the injected secrets, so it migrated the
   # sqlite default instead of Postgres. migrate:latest is idempotent.
-  command: npm run migrate && npm start
+  command: sh startup.sh
   network:
     port: 3000
 
-  # If you use runtime secrets, App Runner requires an instance role so the
-  # runtime can retrieve secrets from Secrets Manager. Add your role ARN here:
-  # instanceRoleArn: arn:aws:iam::291935881411:role/AppRunnerInstanceRole
+  # Instance role required for retrieving secrets from Secrets Manager
+  instanceRoleArn: arn:aws:iam::291935881411:role/AppRunnerInstanceRole
 
   env:
     - name: SITE_NAME
