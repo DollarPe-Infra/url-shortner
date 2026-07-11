@@ -38,7 +38,11 @@ if (process.argv.includes("--production")) {
 
 const spec = {
   PORT: num({ default: 3000 }),
-  SITE_NAME: str({ example: "Dollarpe", default: "Dollarpe" }),
+  SITE_NAME: str({ example: "Proremit", default: "Proremit" }),
+  SITE_DESCRIPTION: str({
+    example: "Secure link shortening for Proremit",
+    default: "Secure link shortening for Proremit",
+  }),
   DEFAULT_DOMAIN: str({ example: "dollarpe.com", default: "localhost:3000" }),
   LINK_LENGTH: num({ default: 6 }),
   LINK_CUSTOM_ALPHABET: str({ default: "abcdefghkmnpqrstuvwxyzABCDEFGHKLMNPQRSTUVWXYZ23456789" }),

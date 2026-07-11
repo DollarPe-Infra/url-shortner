@@ -23,6 +23,7 @@ function viewTemplate(template) {
 function config(req, res, next) {
   res.locals.default_domain = env.DEFAULT_DOMAIN;
   res.locals.site_name = env.SITE_NAME;
+  res.locals.site_description = env.SITE_DESCRIPTION;
   res.locals.contact_email = env.CONTACT_EMAIL;
   res.locals.server_ip_address = env.SERVER_IP_ADDRESS;
   res.locals.server_cname_address = env.SERVER_CNAME_ADDRESS;

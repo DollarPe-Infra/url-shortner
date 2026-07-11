@@ -101,7 +101,8 @@ You can use files for each of the variables by appending `_FILE` to the name of 
 | -------- | ----------- | ------- | ------- |
 | `JWT_SECRET` | This is used to sign authentication tokens. Use a **long** **random** string. | - | - |
 | `PORT` |  The port to start the app on | `3000` | `8888` |
-| `SITE_NAME` |  Name of the website | `Kutt` | `Your Site` |
+| `SITE_NAME` |  Name of the website | `Proremit` | `Your Site` |
+| `SITE_DESCRIPTION` |  Short description for link previews and SEO | `Secure link shortening for Proremit` | `Your tagline` |
 | `DEFAULT_DOMAIN` |  The domain address that this app runs on | `localhost:3000` | `yoursite.com` |
 | `LINK_LENGTH` | The length of of shortened address | `6` | `5` |
 | `LINK_CUSTOM_ALPHABET` | Alphabet used to generate custom addresses. Default value omits o, O, 0, i, I, l, 1, and j to avoid confusion when reading the URL. | (abcd..789) | `abcABC^&*()@` |

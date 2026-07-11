@@ -20,7 +20,9 @@ run:
 
   env:
     - name: SITE_NAME
-      value: Dollarpe
+      value: Proremit
+    - name: SITE_DESCRIPTION
+      value: Secure link shortening for Proremit
     - name: PORT
       value: "3000"
 
