@@ -1233,7 +1233,8 @@ table .tab a:not(.active):hover {
   margin-bottom: auto;
 }
 
-.main-wrapper:has(> .auth-page) header nav li:has(a[href="/admin/login"]) {
+.main-wrapper:has(> .auth-page) header nav li:has(a[href="/admin/login"]),
+.main-wrapper:has(> #protected) header nav li:has(a[href="/admin/login"]) {
   display: none;
 }
 
@@ -2486,14 +2487,21 @@ form#delete-account.htmx-request .spinner { display: block; }
 
 #protected { width: 600px; }
 
-#protected form { width: 100%; margin-top: 1rem; }
-#protected form .inputs-wrapper {  width: 100%; display: flex; align-items: flex-end; }
+#protected form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#protected form .inputs-wrapper {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 2rem;
+}
+
 #protected form label { flex: 0 0 280px; }
 #protected form label input { width: 100%; }
 #protected form button { margin: 0 0 0.2rem 1rem; }
-#protected form .spinner { display: none; }
-#protected form.htmx-request svg { display: none; }
-#protected form.htmx-request .spinner { display: block; }
 
 /* TERMS */
 
@@ -2649,8 +2657,7 @@ form#delete-account.htmx-request .spinner { display: block; }
   .verify-page h2,
   .verify-page h3 { display: flex; flex-direction: column; }
 
-  #protected form { margin-top: 0.5rem; }
-  #protected form .inputs-wrapper {  flex-direction: column; align-items: flex-start; }
+  #protected form .inputs-wrapper { flex-direction: column; align-items: flex-start; margin-top: 1rem; }
   #protected form label { flex-basis: 0; width: 280px; }
   #protected form button { margin: 0.75rem 0 0.2rem 0; }
 }

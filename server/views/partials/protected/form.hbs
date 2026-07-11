@@ -1,5 +1,6 @@
 <form
-  id="report-form"
+  id="protected-form"
+  class="htmx-spinner"
   hx-post="/api/links/{id}/protected"
   hx-sync="this:abort"
   hx-ext="path-params"
@@ -10,7 +11,7 @@
     <p class="success">{{message}}</p>
   {{else}}
     <div class="inputs-wrapper">
-      <label>
+      <label class="{{#if errors.password}}error{{/if}}">
         Password:
         <input 
           type="password" 
@@ -18,14 +19,13 @@
           name="password" 
           placeholder="Password..."
           hx-preserve="true"
-          class="{{#if errors.link}}error{{/if}}"
+          autocomplete="current-password"
           required 
         />
       </label>
       <button type="submit" class="primary">
         <span>{{> icons/spinner}}</span>
-        <span>{{> icons/key}}</span>
-        Unlock & Go
+        Unlock link
       </button>
     </div>
     {{#if error}}<p class="error">{{error}}</p>{{/if}}
