@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" href="/images/dollarpe-favicon.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#111613" />
+  <meta name="theme-color" content="#000000" />
   <meta property="fb:app_id" content="123456789" />
   <meta name="htmx-config" content='{"withCredentials":true}'>
   <meta property="og:url" content="https://{{default_domain}}" />
@@ -21,7 +21,9 @@
   <meta name="twitter:image" content="https://{{default_domain}}/images/card.png" />
   <meta name="description" content="{{site_name}} is a free and open source URL shortener with custom domains and stats." />
   <title>{{site_name}} | {{title}}</title>
+  <link rel="stylesheet" href="/css/tokens.css">
   <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/motion.css">
   {{#each custom_styles}}
     <link rel="stylesheet" href="/css/{{this}}">
   {{/each}}
@@ -35,6 +37,7 @@
   {{{block "scripts"}}}
   <script src="/libs/htmx.min.js"></script>
   <script src="/libs/qrcode.min.js"></script>
+  <script src="/scripts/motion.js"></script>
   <script src="/scripts/main.js"></script>
 </body>
 </html>
