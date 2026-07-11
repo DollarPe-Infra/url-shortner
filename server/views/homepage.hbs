@@ -1,6 +1,8 @@
 {{> header}}
-{{> shortener}}
-{{#if user}}
-  {{> links/table}}
-{{/if}}
+<div class="section-container home-shell">
+  {{> shortener}}
+  {{#if user}}
+    {{> links/table}}
+  {{/if}}
+</div>
 {{> footer}}
