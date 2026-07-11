@@ -10,8 +10,8 @@
   hx-on::after-swap="initStatsDashboard();"
 >
   <div class="loading-stats">
-    {{> icons/spinner}}
-    Loading stats...
+    {{> dot_matrix_loader}}
+    <p class="loading-stats__text">Loading stats…</p>
   </div>
 </section>
 {{#extend "stylesheets"}}
