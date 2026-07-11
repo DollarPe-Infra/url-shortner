@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Proremit">
+  <rect width="32" height="32" rx="7" fill="#E8C478"/>
+  <path fill="#0a0a0a" transform="translate(4 4) scale(1)" d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/>
+</svg>
