@@ -86,16 +86,6 @@
         <section class="stats-cell stats-cell--geo" aria-label="Global views and countries">
           <div class="stats-geo-inner">
             <div class="stats-geo-map">
-              <header class="stats-geo-head">
-                <div class="stats-geo-head__col">
-                  <h2>Global views</h2>
-                  <p class="stats-map-sub">{{link.visit_count}} total views</p>
-                </div>
-                <div class="stats-geo-head__col stats-geo-head__col--end">
-                  <div class="stats-map-delta" data-period="week"></div>
-                  <p class="stats-map-delta-sub">vs last month</p>
-                </div>
-              </header>
               <div class="stats-map-wrap">
                 <div id="map-tooltip"></div>
                 <svg
@@ -103,6 +93,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                   aria-label="world map"
                   viewBox="{{map.viewBox}}"
+                  preserveAspectRatio="xMidYMax meet"
                   data-day="{{json stats.lastDay.stats.country}}"
                   data-week="{{json stats.lastWeek.stats.country}}"
                   data-month="{{json stats.lastMonth.stats.country}}"
@@ -116,6 +107,16 @@
                     <path data-id="{{id}}" aria-label="{{name}}" d="{{d}}"></path>
                   {{/each}}
                 </svg>
+              </div>
+              <div class="stats-geo-head">
+                <div class="stats-geo-head__col">
+                  <h2>Global views</h2>
+                  <p class="stats-map-sub">{{link.visit_count}} total views</p>
+                </div>
+                <div class="stats-geo-head__col stats-geo-head__col--end">
+                  <div class="stats-map-delta" data-period="week"></div>
+                  <p class="stats-map-delta-sub">vs last month</p>
+                </div>
               </div>
             </div>
             <div class="stats-geo-countries">

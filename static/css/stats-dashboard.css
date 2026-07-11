@@ -39,7 +39,7 @@ body:has(#stats-section.stats-page) footer {
   display: none;
 }
 
-body:has(#stats-section.stats-page) header {
+body:has(#stats-section.stats-page) .main-wrapper > header {
   background: var(--stats-bg);
   border-bottom: 1px solid var(--stats-line);
 }
@@ -435,13 +435,12 @@ body:has(#stats-section.stats-page) header {
 
 #stats-section.stats-page .stats-cell--geo {
   border-radius: 8px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(39, 39, 42, 0.15));
 }
 
 #stats-section.stats-page .stats-geo-inner {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(200px, 3fr);
-  min-height: 280px;
+  min-height: 300px;
   height: 100%;
 }
 
@@ -453,16 +452,29 @@ body:has(#stats-section.stats-page) header {
   min-width: 0;
 }
 
+#stats-section.stats-page .stats-geo-map {
+  position: relative;
+  flex: 1;
+}
+
 #stats-section.stats-page .stats-geo-countries {
   border-left: 1px solid var(--stats-line-soft);
 }
 
 #stats-section.stats-page .stats-geo-head {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  padding: 16px 16px 12px;
-  flex-shrink: 0;
+  padding: 16px;
+  pointer-events: none;
+  height: auto;
+  width: auto;
+  margin: 0;
+  background: none;
+  border: none;
 }
 
 #stats-section.stats-page .stats-geo-head__col {
@@ -470,6 +482,7 @@ body:has(#stats-section.stats-page) header {
   flex-direction: column;
   gap: 4px;
   min-width: 0;
+  pointer-events: auto;
 }
 
 #stats-section.stats-page .stats-geo-head__col--end {
@@ -713,18 +726,21 @@ body:has(#stats-section.stats-page) header {
 /* map */
 
 #stats-section.stats-page .stats-map-wrap {
-  flex: 1;
-  padding: 0 16px 16px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 56px 4px 6px;
   min-height: 0;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #stats-section.stats-page svg.map {
   width: 100%;
-  max-width: 475px;
   height: auto;
+  max-height: 100%;
   display: block;
-  margin: 0 auto;
 }
 
 #stats-section.stats-page svg.map path {
