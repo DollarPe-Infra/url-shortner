@@ -403,8 +403,8 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
   position: relative;
   margin: 0 12px;
   padding: 12px;
-  background-color: rgba(250, 250, 250, 0.02);
-  background-image: radial-gradient(circle, rgba(161, 161, 170, 0.15) 0.8px, transparent 0.8px);
+  background-color: var(--overlay-faint);
+  background-image: radial-gradient(circle, var(--grid-dot) 0.8px, transparent 0.8px);
   background-size: 16px 16px;
   border-radius: 4px;
 }
@@ -420,7 +420,7 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
   flex-shrink: 0;
   padding: 8px 16px;
   border-top: 1px solid var(--stats-line-soft);
-  background: rgba(250, 250, 250, 0.02);
+  background: var(--overlay-faint);
 }
 
 #stats-section.stats-page .stats-chart-foot .stats-chart-delta {
@@ -555,7 +555,7 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
 }
 
 #stats-section.stats-page .stats-country-item:hover {
-  background: rgba(250, 250, 250, 0.03);
+  background: var(--overlay-hover);
 }
 
 #stats-section.stats-page .stats-country-row {
@@ -621,7 +621,7 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
 #stats-section.stats-page .stats-country-bar {
   height: 4px;
   margin-left: 24px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--track);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -631,7 +631,7 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
   height: 100%;
   border-radius: 999px;
   background: var(--stats-indigo);
-  transition: width 0.3s ease;
+  /* width set inline at render; no transition — bars arrive at value, not choreographed */
 }
 
 /* devices */
@@ -754,12 +754,12 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
   transition: fill 0.2s ease-in-out;
 }
 
-#stats-section.stats-page svg.map path.color-1 { fill: rgba(99, 102, 241, 0.45); stroke: var(--stats-zinc-800); }
-#stats-section.stats-page svg.map path.color-2 { fill: rgba(99, 102, 241, 0.55); stroke: var(--stats-zinc-800); }
-#stats-section.stats-page svg.map path.color-3 { fill: rgba(99, 102, 241, 0.65); stroke: var(--stats-zinc-800); }
-#stats-section.stats-page svg.map path.color-4 { fill: rgba(99, 102, 241, 0.75); stroke: var(--stats-zinc-800); }
-#stats-section.stats-page svg.map path.color-5 { fill: rgba(99, 102, 241, 0.85); stroke: var(--stats-zinc-800); }
-#stats-section.stats-page svg.map path.color-6 { fill: rgb(99, 102, 241); stroke: var(--stats-zinc-800); }
+#stats-section.stats-page svg.map path.color-1 { fill: rgb(var(--indigo-choropleth) / 0.45); stroke: var(--stats-zinc-800); }
+#stats-section.stats-page svg.map path.color-2 { fill: rgb(var(--indigo-choropleth) / 0.55); stroke: var(--stats-zinc-800); }
+#stats-section.stats-page svg.map path.color-3 { fill: rgb(var(--indigo-choropleth) / 0.65); stroke: var(--stats-zinc-800); }
+#stats-section.stats-page svg.map path.color-4 { fill: rgb(var(--indigo-choropleth) / 0.75); stroke: var(--stats-zinc-800); }
+#stats-section.stats-page svg.map path.color-5 { fill: rgb(var(--indigo-choropleth) / 0.85); stroke: var(--stats-zinc-800); }
+#stats-section.stats-page svg.map path.color-6 { fill: rgb(var(--indigo-choropleth)); stroke: var(--stats-zinc-800); }
 
 #stats-section.stats-page svg.map path.active {
   stroke: var(--accent);
@@ -777,11 +777,11 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
 }
 
 #stats-section.stats-page #map-tooltip:before {
-  border-top-color: #18181b;
+  border-top-color: var(--surface-raised);
 }
 
 #stats-section.stats-page #map-tooltip:after {
-  background: #18181b;
+  background: var(--surface-raised);
   color: var(--stats-ink);
   border: 1px solid var(--stats-line);
 }
@@ -878,7 +878,6 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
 
 @media (prefers-reduced-motion: reduce) {
   #stats-section.stats-page svg.map path,
-  #stats-section.stats-page .stats-country-bar span,
   #stats-section.stats-page .stats-country-item {
     transition: none;
   }

@@ -18,10 +18,16 @@
   --border-soft: rgba(255, 255, 255, 0.05);
   --border-strong: rgba(255, 255, 255, 0.12);
 
+  /* Overlays — subtle tints on dark surfaces */
+  --overlay-faint: rgba(250, 250, 250, 0.02);
+  --overlay-hover: rgba(250, 250, 250, 0.03);
+  --track: rgba(255, 255, 255, 0.06);
+  --grid-dot: rgba(161, 161, 170, 0.15);
+
   /* Ink */
   --ink: #fafafa;
   --ink-secondary: #a1a1aa;
-  --ink-muted: #71717a;
+  --ink-muted: #8a8a94; /* ≥4.5:1 on #000/#0a0a0a — AA body text */
 
   /* Brand — DollarPe green */
   --accent: oklch(74% 0.177 156);
@@ -34,6 +40,7 @@
   /* Data viz accents */
   --cyan: #22d3ee;
   --indigo: #818cf8;
+  --indigo-choropleth: 99 102 241; /* map ramp base; opacity steps in stats-dashboard.css */
   --zinc-800: #27272a;
 
   /* Semantic */

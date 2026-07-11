@@ -1,14 +1,16 @@
 <td class="actions users-actions">
   {{#if banned}}
-    <button class="action banned" disabled="true" data-tooltip="Banned">
+    <button class="action banned" disabled="true" data-tooltip="Banned" aria-label="Banned">
       {{> icons/stop}}
     </button>
   {{/if}}
   {{#unless banned}}
-    <button 
-      class="action ban" 
-      hx-on:click='openDialog("admin-table-dialog")' 
-      hx-get="/admin/confirm-user-ban" 
+    <button
+      class="action ban"
+      data-tooltip="Ban"
+      aria-label="Ban user"
+      hx-on:click='openDialog("admin-table-dialog")'
+      hx-get="/admin/confirm-user-ban"
       hx-target="#admin-table-dialog .content-wrapper" 
       hx-indicator="#admin-table-dialog" 
       hx-vals='{"id":"{{id}}"}'
@@ -16,10 +18,12 @@
       {{> icons/stop}}
     </button>
   {{/unless}}
-  <button 
-    class="action delete" 
-    hx-on:click='openDialog("admin-table-dialog")' 
-    hx-get="/admin/confirm-user-delete" 
+  <button
+    class="action delete"
+    data-tooltip="Delete"
+    aria-label="Delete user"
+    hx-on:click='openDialog("admin-table-dialog")'
+    hx-get="/admin/confirm-user-delete"
     hx-target="#admin-table-dialog .content-wrapper" 
     hx-indicator="#admin-table-dialog" 
     hx-vals='{"id":"{{id}}"}'
