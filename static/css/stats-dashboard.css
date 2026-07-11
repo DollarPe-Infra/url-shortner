@@ -758,7 +758,7 @@ body:has(#stats-section.stats-page) .main-wrapper > header {
 #stats-section.stats-page svg.map path.color-6 { fill: rgb(99, 102, 241); stroke: var(--stats-zinc-800); }
 
 #stats-section.stats-page svg.map path.active {
-  stroke: var(--stats-indigo);
+  stroke: var(--accent);
   stroke-width: 1;
 }
 
