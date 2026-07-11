@@ -1,29 +1,35 @@
-<div class="content">
-  <h2>Delete link?</h2>
-  <p>
-    Are you sure do you want to delete the link &quot;<b>{{link}}</b>&quot;?
-  </p>
-  <div class="buttons">
-    <button type="button" hx-on:click="closeDialog()">Cancel</button>
-    <button 
-      type="button"
-      class="danger confirm" 
-      hx-delete="/api/links/{id}" 
-      hx-ext="path-params" 
-      hx-vals='{"id":"{{id}}"}' 
-      hx-target="closest .content" 
-      hx-swap="none" 
-      hx-indicator="closest .content"
-      hx-select-oob="#dialog-error"
-    >
-      <span>{{> icons/trash}}</span>
-      Delete
-    </button>
-    {{> icons/spinner}}
+<div class="content dialog-panel dialog-panel--confirm">
+  <div class="dialog-panel__body">
+    <h2>Delete link</h2>
+    <p class="dialog-panel__desc">This cannot be undone. The short link will stop redirecting immediately.</p>
+    <p class="dialog-panel__meta">
+      <span class="dialog-panel__meta-label">Short link</span>
+      <code class="dialog-panel__code">{{link}}</code>
+    </p>
   </div>
-  <div id="dialog-error">
-    {{#if error}}
-      <p class="error">{{error}}</p>
-    {{/if}}
+  <div class="dialog-panel__footer">
+    <div class="dialog-panel__actions">
+      <button type="button" class="secondary" hx-on:click="closeDialog()">Cancel</button>
+      <button
+        type="button"
+        class="danger confirm"
+        hx-delete="/api/links/{id}"
+        hx-ext="path-params"
+        hx-vals='{"id":"{{id}}"}'
+        hx-target="closest .content"
+        hx-swap="none"
+        hx-indicator="closest .content"
+        hx-select-oob="#dialog-error"
+      >
+        <span>{{> icons/trash}}</span>
+        Delete link
+      </button>
+      {{> icons/spinner}}
+    </div>
+    <div id="dialog-error">
+      {{#if error}}
+        <p class="error">{{error}}</p>
+      {{/if}}
+    </div>
   </div>
 </div>
