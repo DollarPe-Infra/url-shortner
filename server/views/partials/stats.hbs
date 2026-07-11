@@ -1,100 +1,166 @@
 {{#if error}}
   <div class="stats-error">
     <p>{{> icons/x}} {{error}}</p>
-    <div class="stats-back-to-home">
-      <a class="back-to-home" href="/admin">
-        ← Back to homepage
-      </a>
-    </div>
+    <a class="stats-nav-link" href="/admin">← Back to links</a>
   </div>
 {{else}}
-  <div class="stats-info">
-    <h2>
-      Stats for:
-      <a href="{{link.link.url}}" title="Short link">
-        {{link.link.link}}
-      </a>
-    </h2>
-    <p>{{link.target}}</p>
-  </div>
-  <main id="stats">
-    <div class="stats-head">
-      <p>
-        Total views: <span class="total-number">{{link.visit_count}}</span>
-      </p>
-      <nav class="stats-nav">
-        <button type="button" class="nav" data-period="year" onclick="changeStatsPeriod(event)">Year</button>
-        <button type="button" class="nav" data-period="month" onclick="changeStatsPeriod(event)">Month</button>
-        <button type="button" class="nav" data-period="week" onclick="changeStatsPeriod(event)">Week</button>
-        <button type="button" class="nav" data-period="day" onclick="changeStatsPeriod(event)" disabled="true">Day</button>
-      </nav>
-    </div>
-
-    <div class="stats-period">
-      <h2 data-period="day"><span class="total-in-period">{{stats.lastDay.total}}</span> tracked visits in the last day.</h2>
-      <h2 class="hidden" data-period="week"><span class="total-in-period">{{stats.lastWeek.total}}</span> tracked visits in the last week.</h2>
-      <h2 class="hidden" data-period="month"><span class="total-in-period">{{stats.lastMonth.total}}</span> tracked visits in the last month.</h2>
-      <h2 class="hidden" data-period="year"><span class="total-in-period">{{stats.lastYear.total}}</span> tracked visits in the last year.</h2>
-      <p class="last-update">Last update at <span class="last-update-value" data-date="{{stats.updatedAt}}"></span>.</p>
-      <canvas class="visits" height="350" data-period="day" data-data="{{json stats.lastDay.views}}"></canvas>
-      <canvas class="visits hidden" height="350" data-period="week" data-data="{{json stats.lastWeek.views}}"></canvas>
-      <canvas class="visits hidden" height="350" data-period="month" data-data="{{json stats.lastMonth.views}}"></canvas>
-      <canvas class="visits hidden" height="350" data-period="year" data-data="{{json stats.lastYear.views}}"></canvas>
-      <hr />
-      <div class="stats-columns-wrapper">
-        <div>
-          <h2>Referrers.</h2>
-          <canvas class="referrers" height="325" data-period="day" data-data="{{json stats.lastDay.stats.referrer}}"></canvas>
-          <canvas class="referrers hidden" height="325" data-period="week" data-data="{{json stats.lastWeek.stats.referrer}}"></canvas>
-          <canvas class="referrers hidden" height="325" data-period="month" data-data="{{json stats.lastMonth.stats.referrer}}"></canvas>
-          <canvas class="referrers hidden" height="325" data-period="year" data-data="{{json stats.lastYear.stats.referrer}}"></canvas>
-        </div>
-        <div>
-          <h2>Browsers.</h2>
-          <canvas class="browsers" height="350" data-period="day" data-data="{{json stats.lastDay.stats.browser}}"></canvas>
-          <canvas class="browsers hidden" height="350" data-period="week" data-data="{{json stats.lastWeek.stats.browser}}"></canvas>
-          <canvas class="browsers hidden" height="350" data-period="month" data-data="{{json stats.lastMonth.stats.browser}}"></canvas>
-          <canvas class="browsers hidden" height="350" data-period="year" data-data="{{json stats.lastYear.stats.browser}}"></canvas>
-        </div>
+  <div class="stats-dashboard">
+    <div class="stats-dash-intro">
+      <div class="stats-dash-intro-copy">
+        <h1 class="stats-dash-greeting">Link analytics</h1>
+        <time class="stats-dash-date" id="stats-dash-date"></time>
       </div>
-      <hr />
-      <div class="stats-columns-wrapper">
-        <div>
-          <h2>Countries.</h2>
-          <div id="map-tooltip"></div>
-          <svg 
-            class="map" 
-            xmlns="http://www.w3.org/2000/svg" 
-            aria-label="world map" 
-            viewBox="{{map.viewBox}}"
-            data-day="{{json stats.lastDay.stats.country}}"
-            data-week="{{json stats.lastWeek.stats.country}}"
-            data-month="{{json stats.lastMonth.stats.country}}"
-            data-year="{{json stats.lastYear.stats.country}}"
-            onmouseout="mapTooltipHoverOut()"
-            onmousemove="mapTooltipHoverOver(event)"
-            onpointerdown="mapTooltipHoverOver(event)"
-            onpointerup="mapTooltipHoverOut()"
-          >
-            {{#each map.layers}}
-              <path data-id="{{id}}" aria-label="{{name}}" d="{{d}}"></path>
-            {{/each}}
-          </svg>
-        </div>
-        <div>
-          <h2>Operating systems.</h2>
-          <canvas class="os" height="350" data-period="day" data-data="{{json stats.lastDay.stats.os}}"></canvas>
-          <canvas class="os hidden" height="350" data-period="week" data-data="{{json stats.lastWeek.stats.os}}"></canvas>
-          <canvas class="os hidden" height="350" data-period="month" data-data="{{json stats.lastMonth.stats.os}}"></canvas>
-          <canvas class="os hidden" height="350" data-period="year" data-data="{{json stats.lastYear.stats.os}}"></canvas>
-        </div>
+      <div class="stats-dash-link-meta">
+        <span class="stats-dash-link-label">Short link</span>
+        <a class="stats-dash-link-url" href="{{link.link.url}}" title="Open short link">{{link.link.link}}</a>
       </div>
     </div>
-  </main>
 
-  <div class="stats-back-to-home">
-    <a class="back-to-home" href="/admin">
-      ← Back to homepage
-    </a>
+    <div id="stats" data-total="{{link.visit_count}}">
+      <div class="stats-row stats-row--top">
+        <section class="stats-cell stats-cell--daily" aria-label="Daily stats">
+          <header class="stats-cell-head">
+            <h2>Daily</h2>
+            <span class="stats-cell-icon" aria-hidden="true">{{> icons/cog}}</span>
+          </header>
+          <div class="stats-daily-stack">
+            <div class="stats-metric">
+              <p class="stats-metric-title">Total views</p>
+              <p class="stats-metric-desc">All-time views for this link</p>
+              <p class="stats-metric-value">{{link.visit_count}}</p>
+              <div class="stats-metric-foot">
+                <p class="stats-metric-delta" data-metric="total"></p>
+              </div>
+            </div>
+            <div class="stats-metric">
+              <p class="stats-metric-title">Last 24 hours</p>
+              <p class="stats-metric-desc">Views in the past day</p>
+              <p class="stats-metric-value">{{stats.lastDay.total}}</p>
+              <div class="stats-metric-foot">
+                <p class="stats-metric-delta" data-metric="day"></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-cell stats-cell--chart" aria-label="Tracked visits">
+            <header class="stats-cell-head stats-cell-head--tabs">
+              <nav class="stats-tabs" aria-label="Stats period">
+                <button type="button" class="stats-tab" data-period="day" onclick="changeStatsPeriod(event)">Day</button>
+                <button type="button" class="stats-tab" data-period="week" onclick="changeStatsPeriod(event)" disabled="true">Week</button>
+                <button type="button" class="stats-tab" data-period="month" onclick="changeStatsPeriod(event)">Month</button>
+                <button type="button" class="stats-tab" data-period="year" onclick="changeStatsPeriod(event)">Year</button>
+              </nav>
+            </header>
+            <div class="stats-chart-body">
+              <div class="stats-chart-summary">
+                <div>
+                  <p class="stats-kicker">Tracked visits</p>
+                  <p class="stats-big-num hidden" data-period="day">{{stats.lastDay.total}}</p>
+                  <p class="stats-big-num" data-period="week">{{stats.lastWeek.total}}</p>
+                  <p class="stats-big-num hidden" data-period="month">{{stats.lastMonth.total}}</p>
+                  <p class="stats-big-num hidden" data-period="year">{{stats.lastYear.total}}</p>
+                </div>
+                <p class="stats-range hidden" data-period="day">Last 24 hours</p>
+                <p class="stats-range" data-period="week">Last 7 days</p>
+                <p class="stats-range hidden" data-period="month">Last 30 days</p>
+                <p class="stats-range hidden" data-period="year">Last 12 months</p>
+              </div>
+              <div class="stats-chart-wrap">
+                <canvas class="visits hidden" height="200" data-period="day" data-data="{{json stats.lastDay.views}}"></canvas>
+                <canvas class="visits" height="200" data-period="week" data-data="{{json stats.lastWeek.views}}"></canvas>
+                <canvas class="visits hidden" height="200" data-period="month" data-data="{{json stats.lastMonth.views}}"></canvas>
+                <canvas class="visits hidden" height="200" data-period="year" data-data="{{json stats.lastYear.views}}"></canvas>
+              </div>
+              <div class="stats-chart-foot">
+                <p class="stats-chart-delta hidden" data-period="day"></p>
+                <p class="stats-chart-delta" data-period="week"></p>
+                <p class="stats-chart-delta hidden" data-period="month"></p>
+                <p class="stats-chart-delta hidden" data-period="year"></p>
+              </div>
+            </div>
+          </section>
+      </div>
+
+      <div class="stats-row stats-row--bottom">
+        <section class="stats-cell stats-cell--geo" aria-label="Global views and countries">
+          <div class="stats-geo-inner">
+            <div class="stats-geo-map">
+              <header class="stats-geo-head">
+                <div>
+                  <h2>Global views</h2>
+                  <p class="stats-map-sub">{{link.visit_count}} total views</p>
+                </div>
+                <div class="stats-map-delta-wrap">
+                  <p class="stats-map-delta" data-period="week"></p>
+                  <p class="stats-map-delta-sub">vs last month</p>
+                </div>
+              </header>
+              <div class="stats-map-wrap">
+                <div id="map-tooltip"></div>
+                <svg
+                  class="map"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-label="world map"
+                  viewBox="{{map.viewBox}}"
+                  data-day="{{json stats.lastDay.stats.country}}"
+                  data-week="{{json stats.lastWeek.stats.country}}"
+                  data-month="{{json stats.lastMonth.stats.country}}"
+                  data-year="{{json stats.lastYear.stats.country}}"
+                  onmouseout="mapTooltipHoverOut()"
+                  onmousemove="mapTooltipHoverOver(event)"
+                  onpointerdown="mapTooltipHoverOver(event)"
+                  onpointerup="mapTooltipHoverOut()"
+                >
+                  {{#each map.layers}}
+                    <path data-id="{{id}}" aria-label="{{name}}" d="{{d}}"></path>
+                  {{/each}}
+                </svg>
+              </div>
+            </div>
+            <div class="stats-geo-countries">
+              <header class="stats-geo-countries-head">
+                <h2 class="stats-head-with-icon">
+                  <svg class="stats-head-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  Top countries
+                </h2>
+                <span class="stats-cell-icon" aria-hidden="true">{{> icons/cog}}</span>
+              </header>
+              <div class="stats-list-wrap">
+                <ul class="stats-country-list hidden" data-kind="country" data-period="day" data-data="{{json stats.lastDay.stats.country}}"></ul>
+                <ul class="stats-country-list" data-kind="country" data-period="week" data-data="{{json stats.lastWeek.stats.country}}"></ul>
+                <ul class="stats-country-list hidden" data-kind="country" data-period="month" data-data="{{json stats.lastMonth.stats.country}}"></ul>
+                <ul class="stats-country-list hidden" data-kind="country" data-period="year" data-data="{{json stats.lastYear.stats.country}}"></ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-cell stats-cell--devices" aria-label="Devices">
+          <header class="stats-cell-head">
+            <h2 class="stats-head-with-icon">
+              <svg class="stats-head-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              Devices
+            </h2>
+          </header>
+          <div class="stats-devices-wrap">
+            <div class="stats-device-block">
+              <p class="stats-device-label">Browser</p>
+              <ul class="stats-device-list hidden" data-kind="browser" data-period="day" data-data="{{json stats.lastDay.stats.browser}}"></ul>
+              <ul class="stats-device-list" data-kind="browser" data-period="week" data-data="{{json stats.lastWeek.stats.browser}}"></ul>
+              <ul class="stats-device-list hidden" data-kind="browser" data-period="month" data-data="{{json stats.lastMonth.stats.browser}}"></ul>
+              <ul class="stats-device-list hidden" data-kind="browser" data-period="year" data-data="{{json stats.lastYear.stats.browser}}"></ul>
+            </div>
+            <div class="stats-device-block">
+              <p class="stats-device-label stats-device-label--os">Operating Systems</p>
+              <ul class="stats-device-list hidden" data-kind="os" data-period="day" data-data="{{json stats.lastDay.stats.os}}"></ul>
+              <ul class="stats-device-list" data-kind="os" data-period="week" data-data="{{json stats.lastWeek.stats.os}}"></ul>
+              <ul class="stats-device-list hidden" data-kind="os" data-period="month" data-data="{{json stats.lastMonth.stats.os}}"></ul>
+              <ul class="stats-device-list hidden" data-kind="os" data-period="year" data-data="{{json stats.lastYear.stats.os}}"></ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
 {{/if}}
