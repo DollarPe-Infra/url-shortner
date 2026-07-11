@@ -1184,14 +1184,18 @@ table .tab a:not(.active):hover {
 }
 
 [data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
+[data-tooltip]:hover:after,
+[data-tooltip]:focus-visible:before,
+[data-tooltip]:focus-visible:after {
   display: block;
 }
 
 [data-tooltip]:before,
 [data-tooltip]:after,
 [data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
+[data-tooltip]:hover:after,
+[data-tooltip]:focus-visible:before,
+[data-tooltip]:focus-visible:after {
   animation: tooltip 300ms var(--ease) forwards;
 }
 
@@ -2533,7 +2537,7 @@ form#delete-account.htmx-request .spinner { display: block; }
   a.button,
   button { height: 32px; padding: 0 14px; font-size: 12px; }
   a.button.action,
-  button.action { padding: 4px; width: 22px; height: 22px; }
+  button.action { padding: 4px; width: 24px; height: 24px; }
   button.nav { height: 26px; padding: 0 7px; font-size: 11px; }
 
   .dialog .box { min-width: 300px; max-width: 92vw; padding: 2rem 1.25rem; }

@@ -1,31 +1,35 @@
 <td class="actions">
   {{#if password}}
-    <button class="action password" disabled="true" data-tooltip="Password protected">
+    <button class="action password" disabled="true" data-tooltip="Password protected" aria-label="Password protected">
       {{> icons/key}}
     </button>
   {{/if}}
   {{#if banned}}
-    <button class="action banned" disabled="true" data-tooltip="Banned">
+    <button class="action banned" disabled="true" data-tooltip="Banned" aria-label="Banned">
       {{> icons/stop}}
     </button>
   {{/if}}
   <a
     class="button action stats"
     href="/admin/stats?id={{id}}"
-    title="Stats"
-    class="action stats"
+    data-tooltip="Stats"
+    aria-label="View stats"
   >
     {{> icons/chart}}
   </a>
   <button
     class="action qrcode"
+    data-tooltip="QR code"
+    aria-label="Show QR code"
     hx-on:click="handleQRCode(this, 'admin-table-dialog')"
     data-url="{{link.url}}"
   >
     {{> icons/qrcode}}
   </button>
-  <button 
+  <button
     class="action edit"
+    data-tooltip="Edit"
+    aria-label="Edit link"
     hx-trigger="click queue:none"
     hx-ext="path-params"
     hx-get="/admin/manage/link/edit/{id}" 
@@ -47,10 +51,12 @@
     {{> icons/pencil}}
   </button>
   {{#unless banned}}
-    <button 
-      class="action ban" 
-      hx-on:click='openDialog("admin-table-dialog")' 
-      hx-get="/admin/confirm-link-ban" 
+    <button
+      class="action ban"
+      data-tooltip="Ban"
+      aria-label="Ban link"
+      hx-on:click='openDialog("admin-table-dialog")'
+      hx-get="/admin/confirm-link-ban"
       hx-target="#admin-table-dialog .content-wrapper" 
       hx-indicator="#admin-table-dialog" 
       hx-vals='{"id":"{{id}}"}'
@@ -58,10 +64,12 @@
       {{> icons/stop}}
     </button>
   {{/unless}}
-  <button 
-    class="action delete" 
-    hx-on:click='openDialog("admin-table-dialog")' 
-    hx-get="/admin/confirm-link-delete" 
+  <button
+    class="action delete"
+    data-tooltip="Delete"
+    aria-label="Delete link"
+    hx-on:click='openDialog("admin-table-dialog")'
+    hx-get="/admin/confirm-link-delete"
     hx-target="#admin-table-dialog .content-wrapper" 
     hx-indicator="#admin-table-dialog" 
     hx-vals='{"id":"{{id}}"}'

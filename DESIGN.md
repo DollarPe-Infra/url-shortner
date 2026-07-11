@@ -10,6 +10,8 @@ Product UI (internal ops tool). See [PRODUCT.md](PRODUCT.md).
 
 Source of truth: [`static/css/tokens.css`](static/css/tokens.css), loaded before `styles.css` in `layout.hbs`.
 
+**Live brand override:** [`custom/css/dollarpe.css`](custom/css/dollarpe.css) loads last and re-points `--accent` (and logo tokens) to **Proremit gold `#E8C478`**. The green `--accent` in `tokens.css` is the fallback default; the shipped accent is gold. Read "green" below as "the accent" — it resolves to gold at runtime.
+
 ### Canvas
 
 | Token | Value | Use |
@@ -33,7 +35,7 @@ Source of truth: [`static/css/tokens.css`](static/css/tokens.css), loaded before
 
 | Token | Use |
 |-------|-----|
-| `--accent` | Primary buttons, selection, live status (DollarPe green) |
+| `--accent` | Primary buttons, selection, live status (Proremit gold via override; green fallback) |
 | `--accent-bright` | Trend up, chart highlights |
 | `--accent-ui` | UI labels (browser section) |
 | `--cyan` | OS / secondary viz label |
@@ -74,7 +76,7 @@ Source of truth: [`static/css/tokens.css`](static/css/tokens.css), loaded before
 
 ### Forms
 
-36px inputs, zinc border, green focus ring. Auth/settings use compact 18px titles.
+36px inputs, zinc border, accent focus ring. Auth/settings use compact 18px titles.
 
 ### Stats dashboard
 
