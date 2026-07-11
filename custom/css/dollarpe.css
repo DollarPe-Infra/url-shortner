@@ -1,4 +1,5 @@
 /*
- * DollarPe brand theme now lives in /css/styles.css (dark control-room theme,
- * accent #24CB71). This file is kept as the hook for future brand overrides.
+ * DollarPe brand tokens: static/css/tokens.css
+ * Global components: static/css/styles.css
+ * Override tokens here for deployment-specific tweaks.
  */

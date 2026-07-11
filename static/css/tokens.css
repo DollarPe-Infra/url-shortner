@@ -1,0 +1,75 @@
+/* DollarPe design tokens — shared across admin, auth, settings, stats */
+
+:root {
+  color-scheme: dark;
+
+  /* Canvas */
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface-head: rgba(9, 9, 11, 0.8);
+  --surface-2: rgba(9, 9, 11, 0.8);
+  --surface-3: #27272a;
+  --surface-raised: #18181b;
+  --row-hover: rgba(255, 255, 255, 0.03);
+  --input-bg: #0a0a0a;
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.05);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  /* Ink */
+  --ink: #fafafa;
+  --ink-secondary: #a1a1aa;
+  --ink-muted: #71717a;
+
+  /* Brand — DollarPe green */
+  --accent: oklch(74% 0.177 156);
+  --accent-strong: oklch(79% 0.185 156);
+  --accent-bright: #8ebc18;
+  --accent-ui: #16a34a;
+  --accent-tint: oklch(74% 0.177 156 / 0.13);
+  --on-accent: oklch(20% 0.05 156);
+
+  /* Data viz accents */
+  --cyan: #22d3ee;
+  --indigo: #818cf8;
+  --zinc-800: #27272a;
+
+  /* Semantic */
+  --danger: #ef4444;
+  --danger-fill: oklch(54% 0.19 27);
+  --danger-tint: oklch(70% 0.18 25 / 0.14);
+  --warning: oklch(80% 0.15 85);
+  --warning-tint: oklch(80% 0.15 85 / 0.14);
+  --success: var(--accent);
+
+  /* Layout */
+  --gap: 8px;
+  --radius: 8px;
+  --radius-sm: 6px;
+  --header-h: 52px;
+  --content-max: 1440px;
+
+  /* Effects */
+  --focus-ring: oklch(74% 0.177 156 / 0.55);
+  --shadow-dialog: 0 16px 48px oklch(0% 0 0 / 0.5);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --keyframe-slidey-offset: 0;
+
+  /* Typography */
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* z-index */
+  --z-tooltip: 30;
+  --z-dialog: 20;
+
+  /* Legacy aliases */
+  --bg-color: var(--bg);
+  --text-color: var(--ink);
+  --color-primary: var(--accent);
+  --outline-color: var(--focus-ring);
+  --secondary-text-color: var(--ink-secondary);
+  --underline-color: var(--accent);
+}
