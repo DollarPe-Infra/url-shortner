@@ -1,5 +1,79 @@
 /*
- * DollarPe brand tokens: static/css/tokens.css
- * Global components: static/css/styles.css
- * Override tokens here for deployment-specific tweaks.
+ * Proremit deployment overrides.
+ * Primary: #E8C478 (proremit.com)
+ * Shared tokens: static/css/tokens.css
  */
+
+:root {
+  --logo-mark: #E8C478;
+  --logo-mark-fg: #0a0a0a;
+  --logo-wordmark: #f2ece4;
+  --logo-wordmark-dot: #E8C478;
+
+  --accent: #E8C478;
+  --accent-strong: #edd08a;
+  --accent-bright: #E8C478;
+  --accent-ui: #E8C478;
+  --accent-tint: rgba(232, 196, 120, 0.14);
+  --on-accent: #141414;
+  --focus-ring: rgba(232, 196, 120, 0.5);
+  --success: var(--accent);
+  --underline-color: var(--accent);
+  --color-primary: var(--accent);
+  --outline-color: var(--focus-ring);
+}
+
+header a.logo {
+  gap: 8px;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--logo-mark);
+  color: var(--logo-mark-fg);
+  flex-shrink: 0;
+}
+
+.logo-mark svg {
+  width: 14px;
+  height: 14px;
+}
+
+.logo-wordmark {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--logo-wordmark);
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.logo-wordmark-dot {
+  color: var(--logo-wordmark-dot);
+}
+
+@media (min-width: 1024px) {
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
+
+  .logo-mark svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .logo-wordmark {
+    font-size: 16px;
+  }
+}

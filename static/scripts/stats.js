@@ -1,5 +1,5 @@
 // Better Auth–style link analytics dashboard
-const STATS_GREEN = "rgb(36, 203, 113)";
+const STATS_GREEN = "#E8C478";
 const STATS_CHART_LINE = "#71717a";
 const STATS_RED = "rgb(239, 68, 68)";
 const STATS_MUTED = "#a1a1aa";
