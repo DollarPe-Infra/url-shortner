@@ -1,9 +1,10 @@
 {{> header}}
 <section id="settings" class="section-container">
-  <h1 class="settings-welcome">
-    Welcome, <span>{{user.email}}</span>.
-  </h1>
-  <hr />
+  <header class="settings-head">
+    <h1 class="settings-welcome">
+      Welcome, <span>{{user.email}}</span>.
+    </h1>
+  </header>
   {{> settings/domain/index}}
   <hr />
   {{> settings/apikey}}

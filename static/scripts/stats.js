@@ -113,10 +113,11 @@ function applyDelta(el, percent, period, options) {
 
 function mapDeltaHtml(percent) {
   const abs = Math.abs(percent).toFixed(1);
-  const isUp = percent >= 0;
-  const sign = isUp && percent > 0 ? "+" : "";
-  const icon = isUp ? TREND_UP_FOOT : TREND_DOWN;
-  const pctClass = isUp ? "up" : "down";
+  const isUp = percent > 0;
+  const isDown = percent < 0;
+  const sign = isUp ? "+" : "";
+  const icon = isUp ? TREND_UP_FOOT : isDown ? TREND_DOWN : "";
+  const pctClass = isUp ? "up" : isDown ? "down" : "";
   return `${icon}<span class="stats-delta-pct ${pctClass}">${sign}${abs}%</span>`;
 }
 

@@ -451,39 +451,50 @@ body:has(#stats-section.stats-page) header {
 
 #stats-section.stats-page .stats-geo-head {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  padding: 16px 16px 8px;
+  padding: 16px 16px 12px;
   flex-shrink: 0;
+}
+
+#stats-section.stats-page .stats-geo-head__col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+#stats-section.stats-page .stats-geo-head__col--end {
+  align-items: flex-end;
+  text-align: right;
 }
 
 #stats-section.stats-page .stats-geo-head h2 {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
+  line-height: 17px;
+  letter-spacing: -0.02em;
   color: var(--stats-ink);
 }
 
-#stats-section.stats-page .stats-map-sub {
-  margin: 4px 0 0;
+#stats-section.stats-page .stats-map-sub,
+#stats-section.stats-page .stats-map-delta-sub {
+  margin: 0;
   font-size: 12px;
+  line-height: 16px;
   color: var(--stats-muted);
-}
-
-#stats-section.stats-page .stats-map-delta-wrap {
-  text-align: right;
-  flex-shrink: 0;
 }
 
 #stats-section.stats-page .stats-map-delta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  min-height: 17px;
   margin: 0;
-}
-
-#stats-section.stats-page .stats-map-delta-sub {
-  margin: 2px 0 0;
-  font-size: 10px;
-  color: var(--stats-muted);
+  font-size: 12px;
+  line-height: 1;
 }
 
 #stats-section.stats-page .stats-geo-countries-head {
