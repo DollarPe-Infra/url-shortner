@@ -1,7 +1,18 @@
 {{> header}}
-{{#if login_disabled}}
-  {{> auth/login_disabled}}
-{{else}}
-  {{> auth/form}}
-{{/if}}
+<div class="auth-page">
+  <div class="auth-card">
+    {{#if login_disabled}}
+      <div class="auth-card__head">
+        <h1>Login closed</h1>
+        <p class="auth-card__desc">Sign-in is disabled on this instance.</p>
+      </div>
+    {{else}}
+      <div class="auth-card__head">
+        <h1>Log in</h1>
+        <p class="auth-card__desc">Access your DollarPe dashboard.</p>
+      </div>
+      {{> auth/form}}
+    {{/if}}
+  </div>
+</div>
 {{> footer}}

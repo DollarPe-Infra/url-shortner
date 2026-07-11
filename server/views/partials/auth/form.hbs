@@ -1,24 +1,26 @@
 <form id="login-signup" hx-post="/api/auth/login" hx-swap="outerHTML">
   {{#unless disallow_login_form}}
     <label class="{{#if errors.email}}error{{/if}}">
-      Email address:
+      Email address
       <input
         name="email"
         id="email"
         type="email"
         autofocus="true"
-        placeholder="Email address..."
+        placeholder="you@company.com"
+        autocomplete="email"
         hx-preserve="true"
       />
       {{#if errors.email}}<p class="error">{{errors.email}}</p>{{/if}}
     </label>
     <label class="{{#if errors.password}}error{{/if}}">
-      Password:
+      Password
       <input
         name="password"
         id="password"
         type="password"
-        placeholder="Password..."
+        placeholder="Your password"
+        autocomplete="current-password"
         hx-preserve="true"
       />
       {{#if errors.password}}<p class="error">{{errors.password}}</p>{{/if}}
@@ -55,6 +57,9 @@
     </div>
   {{/unless}}
   {{#if oidc_enabled}}
+    {{#unless disallow_login_form}}
+      <p class="auth-divider" role="presentation"><span>or</span></p>
+    {{/unless}}
     <div class="buttons-wrapper">
       <a class="button secondary full" href="/admin/login/oidc" title="Login with OIDC">
         <span>{{> icons/key}}</span>
