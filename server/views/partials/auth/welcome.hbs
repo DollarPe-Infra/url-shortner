@@ -1,5 +1,21 @@
-<div class="login-signup-message" hx-get="/admin" hx-trigger="load delay:1s" hx-target="body" hx-push-url="/admin">
-  <h1>
-    Welcome. Redirecting to homepage...
-  </h1>
+<div
+  class="login-signup-message login-redirect"
+  hx-get="/admin"
+  hx-trigger="load delay:1s"
+  hx-target="body"
+  hx-push-url="/admin"
+  hx-indicator=".dot-matrix-loader"
+>
+  <div class="dot-matrix-loader" style="--loader-size: 40px; --loader-speed: 1s" role="status" aria-label="Loading">
+    <span style="animation-delay: 0s"></span>
+    <span style="animation-delay: 0.25s"></span>
+    <span style="animation-delay: 0.5s"></span>
+    <span style="animation-delay: 0.25s"></span>
+    <span style="animation-delay: 0.5s"></span>
+    <span style="animation-delay: 0.75s"></span>
+    <span style="animation-delay: 0.5s"></span>
+    <span style="animation-delay: 0.75s"></span>
+    <span style="animation-delay: 1s"></span>
+  </div>
+  <p class="login-redirect__text">Redirecting to dashboard…</p>
 </div>
