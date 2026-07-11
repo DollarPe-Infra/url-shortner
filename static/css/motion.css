@@ -5,11 +5,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
-  min-height: 420px;
   width: 100%;
   text-align: center;
-  padding: 1rem 0 2rem;
+}
+
+.not-found-glitch__hero {
+  margin-bottom: 24px;
+}
+
+.not-found-glitch__message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 24rem;
 }
 
 .not-found-glitch__code-group {
@@ -61,8 +70,8 @@
 .not-found-glitch__copy {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  max-width: 22rem;
+  gap: 8px;
+  width: 100%;
 }
 
 .not-found-glitch__title {

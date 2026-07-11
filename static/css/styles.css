@@ -2333,7 +2333,14 @@ form#delete-account.htmx-request .spinner { display: block; }
 /* 404 - NOT FOUND */
 
 #notfound {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 40px;
+  min-height: calc(100vh - var(--header-h) - 52px);
 }
 
 /* BANNED */
