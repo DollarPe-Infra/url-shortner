@@ -2197,6 +2197,10 @@ footer {
   border-top: 1px solid var(--border-soft);
 }
 
+footer:not(:has(a, button)) {
+  display: none;
+}
+
 footer button.link {
   display: inline-block;
   font-size: 12px;
