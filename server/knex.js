@@ -15,7 +15,9 @@ const db = knex({
     database: env.DB_NAME,
     user: env.DB_USER,
     password: env.DB_PASSWORD,
-    ssl: env.DB_SSL,
+    // ponytail: rejectUnauthorized:false trusts RDS's cert chain without bundling the CA.
+    // Fine inside a VPC; ship the Amazon RDS CA and set verify-full if the DB is ever exposed.
+    ssl: env.DB_SSL ? { rejectUnauthorized: false } : false,
     pool: {
       min: env.DB_POOL_MIN,
       max: env.DB_POOL_MAX
