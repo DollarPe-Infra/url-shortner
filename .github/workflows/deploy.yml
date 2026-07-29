@@ -1,0 +1,152 @@
+name: deploy
+
+on:
+  push:
+    branches: [development, sandbox, production]
+    paths-ignore: ['**.md']
+  workflow_dispatch:
+    inputs:
+      target_env:
+        type: choice
+        options: [development, sandbox, production]
+        default: development
+
+permissions:
+  id-token: write
+  contents: read
+
+# Queue deploys per branch; parallel pushes can land the older image last.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-dispatch:
+    runs-on: ubuntu-latest
+    env:
+      SERVICE: url-shortner
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine target env + account
+        id: env
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_TARGET: ${{ inputs.target_env }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          # Branch decides the env; andromeda resolves it from source_ref too.
+          case "$REF_NAME" in
+            development|sandbox|production) REF_ENV="$REF_NAME" ;;
+            *) echo "::error::No env mapping for branch '$REF_NAME'."; exit 1 ;;
+          esac
+
+          # Mismatch would push to one account and deploy in another.
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$INPUT_TARGET" != "$REF_ENV" ]; then
+            echo "::error::target_env '$INPUT_TARGET' does not match branch '$REF_NAME' (env '$REF_ENV'). andromeda resolves the environment from the branch, so this run would push the image to the '$INPUT_TARGET' account and deploy in '$REF_ENV'. Re-run this workflow from the '$INPUT_TARGET' branch instead."
+            exit 1
+          fi
+          TARGET="$REF_ENV"
+          # Each env is a SEPARATE AWS account. The image must be pushed into the
+          # same account it will be deployed in, so resolve the account too.
+          case "$TARGET" in
+            development) ACCT=291935881411 ;;
+            sandbox)     ACCT=006627205329 ;;
+            production)  ACCT=515966498240 ;;
+            *) echo "No account mapping for env '$TARGET'" >&2; exit 1 ;;
+          esac
+          echo "target_env=$TARGET" >> "$GITHUB_OUTPUT"
+          echo "account=$ACCT"     >> "$GITHUB_OUTPUT"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # Push-only role, in the target env's own account.
+          # NOTE: platform prefix `dollarpe-pt-` is REQUIRED — the bootstrap role
+          # is `dollarpe-pt-svc-ecr-push-<env>`, not `svc-ecr-push-<env>`.
+          role-to-assume: arn:aws:iam::${{ steps.env.outputs.account }}:role/dollarpe-pt-svc-ecr-push-${{ steps.env.outputs.target_env }}
+          aws-region: us-east-1
+
+      - name: Ensure ECR repo exists
+        env:
+          TARGET_ENV: ${{ steps.env.outputs.target_env }}
+        run: |
+          set -euo pipefail
+          aws ecr describe-repositories --repository-names "$SERVICE" >/dev/null 2>&1 \
+            || aws ecr create-repository \
+                 --repository-name "$SERVICE" \
+                 --image-scanning-configuration scanOnPush=true \
+                 --tags Key=andromeda:service,Value="$SERVICE" \
+                        Key=andromeda:env,Value="$TARGET_ENV"
+
+      - name: Log in to ECR
+        id: login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build & push image
+        id: build
+        env:
+          REGISTRY: ${{ steps.login.outputs.registry }}
+        run: |
+          set -euo pipefail
+          REPO="$REGISTRY/$SERVICE"
+          TAG="${GITHUB_SHA}"
+          docker build -t "$REPO:$TAG" .
+          docker push "$REPO:$TAG"
+          DIGEST=$(aws ecr describe-images \
+            --repository-name "$SERVICE" \
+            --image-ids imageTag="$TAG" \
+            --query 'imageDetails[0].imageDigest' --output text)
+          echo "image=$REPO@$DIGEST" >> "$GITHUB_OUTPUT"
+
+      - name: Fire repository_dispatch -> andromeda
+        env:
+          GH_TOKEN: ${{ secrets.ANDROMEDA_DISPATCH_TOKEN }}
+          # andromeda resolves the environment from source_ref (fail-closed
+          # allowlist: development/testing-ecs/sandbox/main/production refs).
+          SOURCE_REF: ${{ github.ref }}
+          IMAGE: ${{ steps.build.outputs.image }}
+        run: |
+          # No -e: every service gets attempted, failures are collected below.
+          set -uo pipefail
+          DISPATCHED=()
+          FAILED=()
+
+          dispatch() {
+            local svc="$1" spec="$2" b64 attempt
+            b64=$(base64 -w0 "$spec" 2>/dev/null || base64 "$spec" | tr -d '\n')
+            if [ -z "$b64" ]; then
+              echo "::warning::could not encode $spec"
+              FAILED+=("$svc")
+              return
+            fi
+            for attempt in 1 2 3; do
+              if jq -n \
+                   --arg svc  "$svc" \
+                   --arg ref  "$SOURCE_REF" \
+                   --arg img  "$IMAGE" \
+                   --arg b64  "$b64" \
+                   --arg sha  "${GITHUB_SHA}" \
+                   '{event_type: "service-deploy", client_payload: {service: $svc, source_ref: $ref, image_digest: $img, service_yaml_b64: $b64, source_sha: $sha}}' \
+                 | gh api "repos/DollarPe-Infra/andromeda/dispatches" --input -
+              then
+                echo "Dispatched service-deploy for $svc (ref $SOURCE_REF)"
+                DISPATCHED+=("$svc")
+                return
+              fi
+              echo "::warning::dispatch for $svc failed (attempt $attempt/3)"
+              if [ "$attempt" -lt 3 ]; then sleep $((attempt * 5)); fi
+            done
+            FAILED+=("$svc")
+          }
+
+          dispatch url-shortner   service.yaml
+
+          # url-shortner runs the migration in pre_deploy; a partial dispatch leaves
+          # workers on old code against the new schema until someone re-runs.
+          if [ ${#FAILED[@]} -gt 0 ]; then
+            echo "::error::PARTIAL DEPLOY — dispatched: ${DISPATCHED[*]:-none} | NOT dispatched: ${FAILED[*]}. Re-run this workflow to bring the rest up."
+            exit 1
+          fi
+          echo "All ${#DISPATCHED[@]} services dispatched."
