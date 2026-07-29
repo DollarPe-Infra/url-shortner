@@ -1,0 +1,62 @@
+name: url-shortner
+runtime: node20
+
+# ECS runs ecs-start.sh (node server, no migrations); App Runner keeps using
+# startup.sh via apprunner.yaml. knex migrations run once via pre_deploy.
+command: sh ecs-start.sh
+pre_deploy: sh pre-deploy.sh
+pre_deploy_timeout: 600        # provisioning + image pull + knex migrate:latest
+
+expose:
+  scheme: public              # public ALB -> url-shortner-dev.dollarpe.xyz (short links are public)
+  port: 3000                  # PORT=3000 (startup.sh / Dockerfile EXPOSE / npm start)
+  health_check:
+    path: /health             # server.js: app.use('/health', ...) — no auth, host-independent
+    grace_period_seconds: 300
+
+task:
+  cpu: 256                    # small node app; sidecar carves 128 -> app 128 CPU
+  memory: 1024                # sidecar carves 128 -> app ~896 MB
+  deployment:
+    strategy: rolling
+
+environments:
+  development:
+    task:
+      min: 1
+
+env:
+  SITE_NAME: 'Proremit'
+  SITE_DESCRIPTION: 'Secure link shortening for Proremit'
+  PORT: '3000'
+  # ENVIRONMENT / AWS_REGION / SERVICE_NAME are platform-injected — do not set them.
+
+secrets:
+  # Blob form: one secret named development/url-shortner (HYPHEN — matches the
+  # service name; the App Runner blob is development/url_shortner with an underscore,
+  # so it must be copied to the hyphen name — see notes). :KEY:: selects a field.
+  NODE_ENV: "secret://development/url-shortner:NODE_ENV::"
+  DEFAULT_DOMAIN: "secret://development/url-shortner:DEFAULT_DOMAIN::"
+  TRUST_PROXY: "secret://development/url-shortner:TRUST_PROXY::"
+  DB_CLIENT: "secret://development/url-shortner:DB_CLIENT::"
+  DB_HOST: "secret://development/url-shortner:DB_HOST::"
+  DB_PORT: "secret://development/url-shortner:DB_PORT::"
+  DB_NAME: "secret://development/url-shortner:DB_NAME::"
+  DB_USER: "secret://development/url-shortner:DB_USER::"
+  DB_PASSWORD: "secret://development/url-shortner:DB_PASSWORD::"
+  DB_SSL: "secret://development/url-shortner:DB_SSL::"
+  DB_POOL_MIN: "secret://development/url-shortner:DB_POOL_MIN::"
+  DB_POOL_MAX: "secret://development/url-shortner:DB_POOL_MAX::"
+  REDIS_ENABLED: "secret://development/url-shortner:REDIS_ENABLED::"
+  REDIS_HOST: "secret://development/url-shortner:REDIS_HOST::"
+  REDIS_PORT: "secret://development/url-shortner:REDIS_PORT::"
+  REDIS_PASSWORD: "secret://development/url-shortner:REDIS_PASSWORD::"
+  REDIS_DB: "secret://development/url-shortner:REDIS_DB::"
+  LINK_LENGTH: "secret://development/url-shortner:LINK_LENGTH::"
+  DISALLOW_REGISTRATION: "secret://development/url-shortner:DISALLOW_REGISTRATION::"
+  DISALLOW_ANONYMOUS_LINKS: "secret://development/url-shortner:DISALLOW_ANONYMOUS_LINKS::"
+  CUSTOM_DOMAIN_USE_HTTPS: "secret://development/url-shortner:CUSTOM_DOMAIN_USE_HTTPS::"
+  JWT_SECRET: "secret://development/url-shortner:JWT_SECRET::"
+  ADMIN_EMAIL: "secret://development/url-shortner:ADMIN_EMAIL::"
+  ADMIN_PASSWORD: "secret://development/url-shortner:ADMIN_PASSWORD::"
+  LINK_CUSTOM_ALPHABET: "secret://development/url-shortner:LINK_CUSTOM_ALPHABET::"
