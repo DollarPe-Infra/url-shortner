@@ -33,7 +33,7 @@ environments:
 
   production:
     expose:
-      scheme: internal          # internal ALB; reachable only inside the VPC
+      scheme: public            # public
     task:
       min: 1                    # TODO: confirm real production capacity; mirrors dev for now
 
